@@ -1,0 +1,12 @@
+.products {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.welcome{
+    text-align: center;
+    text-shadow:2px 3px;
+    color: blue;
+}

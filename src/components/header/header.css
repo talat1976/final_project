@@ -1,0 +1,33 @@
+.header {
+    background: #2c3e50;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.links a {
+  margin: 15px; 
+  color: #fff;
+  text-decoration: none;
+
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+.logo{
+  width: 70px;
+  height: 50ox;
+  padding: 2px;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+ 
+  position: sticky;
+
+}
