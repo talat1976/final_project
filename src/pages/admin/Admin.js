@@ -21,8 +21,8 @@ export default function Admin() {
                     <div>
                         <div className="mb-5">
                             <Link to={`${path}/products`} className="btn btn-primary mr-5">Products</Link>
-                            <Link className="btn btn-primary mr-5">Orders</Link>
-                            <Link className="btn btn-primary">Reports</Link>
+                            <Link to="#" className="btn btn-primary mr-5">Orders</Link>
+                            <Link to="#" className="btn btn-primary">Reports</Link>
                         </div>
                         <Switch>
                             <Route path={`${path}/products`} component={ProductsList} />

@@ -1,3 +1,27 @@
+#home .links {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#home .links .link {
+    font-size: 20px;
+    margin: 0 10px;
+    color: #2c3e50;
+    padding: 3px 15px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    border: 2px solid #2c3e50;
+    cursor: pointer;
+}
+
+#home .links .link:hover {
+    background: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+}
+
 .products {
     margin-top: 50px;
     display: grid;
@@ -5,8 +29,10 @@
     gap: 30px;
 }
 
-.welcome{
+.sale-banner{
     text-align: center;
-    text-shadow:2px 3px;
-    color: blue;
+    color: #fff;
+    background-color: #F39C12;
+    padding: 10px;
+    border-radius: 10px;
 }
