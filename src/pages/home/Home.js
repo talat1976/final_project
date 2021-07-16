@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import "./home.css"
-import Product from "../../components/product/Product"
+import ProductItem from "../../components/product/ProductItem"
 import { firebaseDB } from '../../services/firebase'
 import { Link } from 'react-router-dom'
 
-const Home = () => {
+const Home = (props) => {
 
     const [products, setProducts] = useState([])
     const [filterdProducts, setFilterdProducts] = useState([])
@@ -37,6 +37,11 @@ const Home = () => {
         }
     }, [filter])
 
+    const onView = (id) => {
+        props.history.push(`/product/${id}`)
+
+    }
+
     return (
 
         <div className="page" id="home">
@@ -54,9 +59,10 @@ const Home = () => {
 
             <div className="products">
                 {filterdProducts.map(prod =>
-                    <Product
+                    <ProductItem
                         key={prod.id}
                         product={prod}
+                        onClick={() => onView(prod.id)}
                     />
                 )}
             </div>

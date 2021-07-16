@@ -9,6 +9,7 @@ import E404 from './pages/Errors/E404';
 import Login from './pages/login/Login';
 import Contact from './pages/contact/Contact';
 import Admin from './pages/admin/Admin';
+import Product from './pages/product/Product';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/contact" component={Contact} />
             <Route path="/admin" component={Admin} />
+            <Route path="/product/:id" component={Product} />
             <Route component={E404} />
           </Switch>
         </main>

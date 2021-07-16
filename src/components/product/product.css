@@ -1,21 +1,25 @@
 .product {
-    border: 3px solid #ddd;
-    padding: 5px;
     position: relative;
-    background: #eee;
-    border-radius:10px;
-    
+    background: #fff;
+    border-radius: 5px;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.product .content {
+    padding: 10px;
 }
 
 .product .product-img {
+    cursor: pointer;
     width: 100%;
-    height: 65%;
+    height: 200px;
     object-fit: cover;
 }
 
-.sale {
-    background: #ddd;
-}
+
 
 .sale-text {
     color: white;
@@ -25,4 +29,9 @@
     top: 5px;
     right: 5px;
     border-radius: 50%;
+}
+
+.product .buttons {
+    display: flex;
+    justify-content: space-between;
 }

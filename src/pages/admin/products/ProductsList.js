@@ -43,6 +43,10 @@ export const ProductsList = () => {
         setEditModal(false)
     }
 
+    const onDelete = async (id) => {
+        const res = await firebaseDB.collection('products').doc(id).delete();
+    }
+
     return (
         <div>
             <div className="d-flex justify-content-between" >
@@ -78,7 +82,7 @@ export const ProductsList = () => {
                             <th scope="row"><img src={prd.image} width="100px" /></th>
                             <th scope="row">
                                 <button onClick={() => onEditClick(prd)} className="btn btn-primary">Edit</button>
-                                <button className="btn btn-danger">Delete</button>
+                                <button className="btn btn-danger" onClick={() => onDelete(prd.id)}>Delete</button>
                             </th>
                         </tr>
                     )}

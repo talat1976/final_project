@@ -14,6 +14,7 @@
     transition: all 0.3s;
     border: 2px solid #2c3e50;
     cursor: pointer;
+    background: #fff;
 }
 
 #home .links .link:hover {

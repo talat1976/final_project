@@ -11,6 +11,7 @@ export default function CreateProducts(props) {
         image: undefined,
         desc: "",
         category: "",
+        warranty: "",
         sale: 0,
         comp: ""
     })
@@ -57,7 +58,8 @@ export default function CreateProducts(props) {
 
                 <div>
                     <label>Description</label>
-                    <input className="form-control" type="text" name="desc" value={product.desc} onChange={onChange} />
+                    <textarea className="form-control" type="text" name="desc" value={product.desc} onChange={onChange}>
+                    </textarea>
                 </div>
 
                 <div>
@@ -80,6 +82,10 @@ export default function CreateProducts(props) {
                 <div>
                     <label>Company</label>
                     <input className="form-control" type="text" name="comp" value={product.company} onChange={onChange} />
+                </div>
+                <div>
+                    <label>אחריות</label>
+                    <input className="form-control" type="text" name="warranty" value={product.warranty} onChange={onChange} />
                 </div>
 
                 <button className="btn btn-primary mt-3" onClick={() => onSubmit(product)}>Submit</button>

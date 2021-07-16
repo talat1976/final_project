@@ -25,6 +25,7 @@ export default function CreateProducts(props) {
                             desc: product.desc,
                             sale: +product.sale,
                             comp: product.comp,
+                            warranty: product.warranty,
                             category: product.category,
                             created: timestamp()
                         })
