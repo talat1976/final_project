@@ -53,6 +53,7 @@ const Home = (props) => {
                 <div className="link" onClick={() => setFilter("tools")}>  ציוד נלווה</div>
                 <div className="link" onClick={() => setFilter("hardware")}>חומרה למחשבים </div>
                 <div className="link" onClick={() => setFilter("monitor")}> מסכים </div>
+
             </div>
 
             {(filter === "sale") && <h1 className="sale-banner"> TALAT TECH מבצעי השבוע  ב  </h1>}

@@ -24,7 +24,7 @@ const Product = (props) => {
             <img src={product.image} />
             <h4>{product.name}</h4>
             <p>{product.desc}</p>
-            <h3>${product.price}</h3>
+            <h3>₪{product.price}</h3>
             {product.warranty ? <div>אחריות: {product.warranty}</div> : null}
             {product.comp && <div>מותג: {product.comp}</div>}
         </div>
