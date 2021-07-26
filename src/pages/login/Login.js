@@ -1,4 +1,5 @@
 import React from 'react'
+import "./login.css";
 import { useState } from 'react'
 
 export default function Login() {
@@ -7,7 +8,7 @@ export default function Login() {
 
     return (
         <div>
-            <h1 >: הרשמה לאתר </h1>
+            <h1 className="login">: הרשמה לאתר </h1>
             <table class="table table-bordered border-primary">
                 <thead>
                     <tr>
