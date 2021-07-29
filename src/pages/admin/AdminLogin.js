@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 export default function AdminLogin(props) {
 
-    const [email, setemail] = useState("talat@gmail.com")
-    const [password, setpassword] = useState("123456")
+    const [email, setemail] = useState("")
+    const [password, setpassword] = useState("")
 
     const onClick = () => {
         if (email === "talat" && password === "123456") {

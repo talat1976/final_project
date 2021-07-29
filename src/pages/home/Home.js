@@ -48,8 +48,8 @@ const Home = (props) => {
             <div className="links">
                 <div className="link" onClick={() => setFilter("")}>הכל</div>
                 <div className="link" onClick={() => setFilter("sale")}>מבצע השבוע</div>
-                <div className="link" onClick={() => setFilter("pc")}>מחשבים נייחים  וניידים</div>
-                <div className="link" onClick={() => setFilter("mobile")}>  סמארטפונים טאבלטים</div>
+                <div className="link" onClick={() => setFilter("pc")}>מחשבים נייחים / וניידים</div>
+                <div className="link" onClick={() => setFilter("mobile")}>  סמארטפונים / טאבלטים</div>
                 <div className="link" onClick={() => setFilter("tools")}>  ציוד נלווה</div>
                 <div className="link" onClick={() => setFilter("hardware")}>חומרה למחשבים </div>
                 <div className="link" onClick={() => setFilter("monitor")}> מסכים </div>

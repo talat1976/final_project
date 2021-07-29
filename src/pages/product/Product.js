@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { firebaseDB } from '../../services/firebase'
 import "./product.css"
 
+
+const addToCart = () => {
+    alert("To do After")
+}
 const Product = (props) => {
     const [product, setProduct] = useState()
 
@@ -27,7 +31,13 @@ const Product = (props) => {
             <h3>₪{product.price}</h3>
             {product.warranty ? <div>אחריות: {product.warranty}</div> : null}
             {product.comp && <div>מותג: {product.comp}</div>}
+
+            <button className="btn btn-success" onClick={addToCart}>לקניה</button>
+
+
         </div>
+
+
     )
 }
 
