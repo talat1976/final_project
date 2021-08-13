@@ -6,6 +6,12 @@ import "./product.css"
 const addToCart = () => {
     alert("To do After")
 }
+
+const ToPay = () => {
+    alert("To do After")
+}
+
+
 const Product = (props) => {
     const [product, setProduct] = useState()
 
@@ -32,7 +38,11 @@ const Product = (props) => {
             {product.warranty ? <div>אחריות: {product.warranty}</div> : null}
             {product.comp && <div>מותג: {product.comp}</div>}
 
-            <button className="btn btn-success" onClick={addToCart}>לקניה</button>
+            <div className="mt-4">
+                <button className="btn btn-success" onClick={ToPay}>לקניה</button>
+                <button className="btn btn-success mr-4" onClick={addToCart}>הוספה לסל</button>
+            </div>
+
 
 
         </div>

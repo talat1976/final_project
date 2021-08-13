@@ -27,7 +27,7 @@ function ProductItem(props) {
                 <div>
                     <div className="buttons">
                         {props.hideButton ? null :
-                            <Button size="sm" className="mb-1">קנייה</Button>
+                            <Button size="sm" className="mb-1" onClick={() => props.onAddToCart(prod.id)}>הוספה לסל</Button>
                         }
 
                         <Button size="sm" variant="success" className="mb-1" onClick={props.onClick}>פרטים</Button>

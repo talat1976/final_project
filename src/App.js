@@ -10,6 +10,9 @@ import Login from './pages/login/Login';
 import Contact from './pages/contact/Contact';
 import Admin from './pages/admin/Admin';
 import Product from './pages/product/Product';
+import Reports from './pages/reports/Reports';
+import Cart from './pages/cart/Cart';
+import Payment from './pages/payment/Payment';
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
             <Route path="/contact" component={Contact} />
             <Route path="/admin" component={Admin} />
             <Route path="/product/:id" component={Product} />
+            <Route path="/reports" component={Reports} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/payment/:amount" component={Payment} />
             <Route component={E404} />
           </Switch>
         </main>

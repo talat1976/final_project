@@ -3,12 +3,15 @@ import "./home.css"
 import ProductItem from "../../components/product/ProductItem"
 import { firebaseDB } from '../../services/firebase'
 import { Link } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 const Home = (props) => {
 
     const [products, setProducts] = useState([])
     const [filterdProducts, setFilterdProducts] = useState([])
     const [filter, setFilter] = useState("")
+
+    const [cookies, setCookie] = useCookies(['cart'])
 
     useEffect(() => {
         const unsub = firebaseDB.collection("products").onSnapshot((snap) => {
@@ -42,6 +45,10 @@ const Home = (props) => {
 
     }
 
+    const onAddToCart = (id) => {
+        setCookie("cart", `${cookies.cart},${id}`)
+    }
+
     return (
 
         <div className="page" id="home">
@@ -62,6 +69,7 @@ const Home = (props) => {
                 {filterdProducts.map(prod =>
                     <ProductItem
                         key={prod.id}
+                        onAddToCart={onAddToCart}
                         product={prod}
                         onClick={() => onView(prod.id)}
                     />
