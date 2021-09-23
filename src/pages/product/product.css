@@ -1,7 +1,30 @@
 .main-content {
-    text-align: right;
+    text-align: center;
     direction: rtl;
     padding: 50px;
+    background: #f8f8f8;
 }
 
+.card {
+    background: #fff;
+    width: 500px;
+    margin: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.image {
+    width: 700px;
+    margin-bottom: 20px;
+}
+.image img {
+    width: 50%;
+}
+
+.not_found {
+    color: red;
+}
 

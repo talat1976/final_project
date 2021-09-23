@@ -1,10 +1,10 @@
 import React from "react"
 import "./header.css"
 import { Link } from "react-router-dom"
-import p5 from "../../images/TalatTech.png"
+import p5 from "../../images/TalatTechWhite.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { useCookies } from "react-cookie"
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 
 function Header() {
 

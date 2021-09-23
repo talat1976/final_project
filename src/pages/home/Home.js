@@ -10,6 +10,7 @@ const Home = (props) => {
     const [products, setProducts] = useState([])
     const [filterdProducts, setFilterdProducts] = useState([])
     const [filter, setFilter] = useState("")
+    const [categories, setCategories] = useState([])
 
     const [cookies, setCookie] = useCookies(['cart'])
 
@@ -18,6 +19,14 @@ const Home = (props) => {
             const arr = snap.docs.map(item => ({ id: item.id, ...item.data() }))
             setProducts(arr)
             setFilterdProducts(arr)
+        },
+            (error) => console.log(error),
+            () => console.log("complete")
+        )
+
+        firebaseDB.collection("categories").onSnapshot((snap) => {
+            const arr = snap.docs.map(item => ({ id: item.id, ...item.data() }))
+            setCategories(arr)
         },
             (error) => console.log(error),
             () => console.log("complete")
@@ -46,24 +55,39 @@ const Home = (props) => {
     }
 
     const onAddToCart = (id) => {
-        setCookie("cart", `${cookies.cart},${id}`)
+        if (cookies.cart) {
+            setCookie("cart", `${cookies.cart},${id}`)
+        } else {
+            setCookie("cart", `${id}`)
+        }
     }
 
     return (
 
         <div className="page" id="home">
             <div className="links">
-                <div className="link" onClick={() => setFilter("")}>הכל</div>
-                <div className="link" onClick={() => setFilter("sale")}>מבצע השבוע</div>
-                <div className="link" onClick={() => setFilter("pc")}>מחשבים נייחים / וניידים</div>
-                <div className="link" onClick={() => setFilter("mobile")}>  סמארטפונים / טאבלטים</div>
-                <div className="link" onClick={() => setFilter("tools")}>  ציוד נלווה</div>
-                <div className="link" onClick={() => setFilter("hardware")}>חומרה למחשבים </div>
-                <div className="link" onClick={() => setFilter("monitor")}> מסכים </div>
+                <div
+                    className={`link ${filter === "" ? "active" : ""}`}
+                    onClick={() => setFilter("")}
+                >
+                    הכל
+                </div>
+
+                <div className={`link ${filter === "sale" ? "active" : ""}`} onClick={() => setFilter("sale")}>מבצע השבוע</div>
+
+                {categories.map(category =>
+                    <div
+                        key={category.id}
+                        className={`link ${filter === category.value ? "active" : ""}`}
+                        onClick={() => setFilter(category.value)}
+                    >
+                        {category.display}
+                    </div>
+                )}
 
             </div>
 
-            {(filter === "sale") && <h1 className="sale-banner"> TALAT TECH מבצעי השבוע  ב  </h1>}
+            {(filter === "sale") && <h1 className="sale-banner"> TALAT TECH  מבצעי השבוע  ב  </h1>}
 
             <div className="products">
                 {filterdProducts.map(prod =>

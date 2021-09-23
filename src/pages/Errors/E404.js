@@ -1,10 +1,14 @@
 import React from 'react'
+import errors from './errors.css'
+import p4 from "../../images/notfound.png"
+
 
 export default function E404() {
     return (
         <div>
             <h1>404</h1>
-            <p>Error</p>
+            <img className="notfound" src={p4} />
+
         </div>
     )
 }

@@ -1,12 +1,16 @@
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Spinner } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { firebaseDB, timestamp } from '../../services/firebase'
+import "./payment.css"
 
 const init = {
     name: "",
     email: "",
     phone: "",
+    address: "",
     card: "",
     exp: "",
     cvv: "",
@@ -38,37 +42,41 @@ const Payment = (props) => {
         let valid = true
 
         if (!form.name) {
-            setErrors(errors => ({ ...errors, name: "Name is required" }))
+            setErrors(errors => ({ ...errors, name: " שדה חובה" }))
             valid = false
         }
 
         if (!form.email) {
-            setErrors(errors => ({ ...errors, email: "Email is required" }))
+            setErrors(errors => ({ ...errors, email: " שדה חובה" }))
             valid = false
         }
 
         if (!form.phone) {
-            setErrors(errors => ({ ...errors, phone: "Phone is required" }))
+            setErrors(errors => ({ ...errors, phone: " שדה חובה" }))
+            valid = false
+        }
+        if (!form.address) {
+            setErrors(errors => ({ ...errors, address: " שדה חובה" }))
             valid = false
         }
 
         if (!form.id) {
-            setErrors(errors => ({ ...errors, id: "ID is required" }))
+            setErrors(errors => ({ ...errors, id: " שדה חובה" }))
             valid = false
         }
 
         if (!form.card) {
-            setErrors(errors => ({ ...errors, card: "Card is required" }))
+            setErrors(errors => ({ ...errors, card: " שדה חובה" }))
             valid = false
         }
 
         if (!form.cvv) {
-            setErrors(errors => ({ ...errors, cvv: "Cvv is required" }))
+            setErrors(errors => ({ ...errors, cvv: " שדה חובה" }))
             valid = false
         }
 
         if (!form.exp) {
-            setErrors(errors => ({ ...errors, exp: "Exp is required" }))
+            setErrors(errors => ({ ...errors, exp: "שדה חובה" }))
             valid = false
         }
 
@@ -89,8 +97,10 @@ const Payment = (props) => {
             name: form.name,
             email: form.email,
             phone: form.phone,
+            address: form.address,
             id: form.id,
             status: "paid",
+            deliver: "in_progress",
             amount: total,
             created: timestamp()
         })
@@ -98,44 +108,52 @@ const Payment = (props) => {
                 console.log("success")
 
                 setSuccess(true)
-
+                setLoading(false)
+                setCookie("cart", "")
 
             })
             .catch((err) => console.log(err))
-
-        setCookie("cart", "")
-
-        setLoading(false)
     }
 
     return (
         <div>
-            <div className="row">
-                <div className="col-md-6 offset-md-3 mb-3 mt-3">
-                    <h2>Payments</h2>
-                </div>
-            </div>
+
 
             {success ?
-                <div>
-                    Thank for buying from Talet TECH,
-                    you will recive your order up to working 14 days
-                </div>
+                (
+                    <div className="success">
+                        <div>
+                            <h2>ההזמנה נקלטה בהצלחה</h2>
+                            <FontAwesomeIcon className="check-icon" icon={faCheckCircle} />
+                        </div>
+                        <div className="success-text">
+                            <h2>Talat Tech תודה שקניתם מ </h2>
+
+                            <h3>המוצר יגיע אליכם תוך 14 ימי עסקים </h3>
+                            <h3>נשמח לראות אותכם שוב</h3>
+
+                        </div>
+                    </div>
+                )
                 :
-                loading ?
+                (loading ?
                     <div>
                         <Spinner animation="border" />
-                        <h4>Please wait unitl we proccess your order</h4>
+                        <h4>אנא המתן אנחנו מכינים את ההזמנה שלך ...</h4>
                     </div>
                     :
                     <div className="row">
 
+                        <div className="col-md-6 offset-md-3 mb-3 mt-3">
+                            <h2 className="text-center" >לתשלום</h2>
+                        </div>
+
                         <div className="col-md-6 offset-md-3 mb-3">
-                            <label className="form-label">Fullname</label>
+                            <label className="form-label">שם מלא</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Name"
+                                placeholder="שם מלא"
                                 value={form.name}
                                 onChange={onChange}
                                 name="name"
@@ -144,7 +162,7 @@ const Payment = (props) => {
                         </div>
 
                         <div className="col-md-6 offset-md-3 mb-3">
-                            <label className="form-label">Email address</label>
+                            <label className="form-label">כתובת מייל</label>
                             <input type="email"
                                 className="form-control"
                                 placeholder="name@example.com"
@@ -156,7 +174,7 @@ const Payment = (props) => {
                         </div>
 
                         <div className="col-md-6 offset-md-3 mb-3">
-                            <label className="form-label">Phone</label>
+                            <label className="form-label">פלאפון</label>
                             <input type="phone"
                                 className="form-control"
                                 placeholder="050000000000"
@@ -168,7 +186,19 @@ const Payment = (props) => {
                         </div>
 
                         <div className="col-md-6 offset-md-3 mb-3">
-                            <label className="form-label">ID</label>
+                            <label className="form-label">כתובת כולל רחוב</label>
+                            <input type="text"
+                                className="form-control"
+                                placeholder="Jerusalem, street 10"
+                                value={form.address}
+                                onChange={onChange}
+                                name="address"
+                            />
+                            {errors.address && <div className="text-danger small">{errors.address}</div>}
+                        </div>
+
+                        <div className="col-md-6 offset-md-3 mb-3">
+                            <label className="form-label">מספר זהות</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -180,7 +210,7 @@ const Payment = (props) => {
                         </div>
 
                         <div className="col-md-6 offset-md-3 mb-3">
-                            <label className="form-label">Credit Card</label>
+                            <label className="form-label">מספר הכרטיס</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -195,7 +225,7 @@ const Payment = (props) => {
                             <div className="row">
 
                                 <div className="col-md-6">
-                                    <label className="form-label">Exp</label>
+                                    <label className="form-label">תוקף הכרטיס</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -222,11 +252,11 @@ const Payment = (props) => {
                         </div>
 
                         <div className="col-md-6 offset-md-3 mb-3">
-                            <button className="btn btn-primary" onClick={onSubmit}>Pay ₪{total}</button>
+                            <button className="btn btn-primary" onClick={onSubmit}>לתשלום ₪{total}</button>
                         </div>
 
                     </div>
-            }
+                )}
 
         </div>
     )

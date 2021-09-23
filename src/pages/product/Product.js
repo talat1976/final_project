@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
 import { firebaseDB } from '../../services/firebase'
 import "./product.css"
 
 
-const addToCart = () => {
-    alert("To do After")
-}
-
-const ToPay = () => {
-    alert("To do After")
-}
-
-
 const Product = (props) => {
     const [product, setProduct] = useState()
+    const [cookies, setCookie] = useCookies(['cart'])
+    const productId = props.match.params.id
 
     useEffect(() => {
         const fetch = async () => {
-            const prodRef = firebaseDB.collection("products").doc(props.match.params.id)
+            const prodRef = firebaseDB.collection("products").doc(productId)
             const doc = await prodRef.get()
             setProduct(doc.data())
         }
 
         fetch()
-    }, [props.match.params.id])
+    }, [productId])
+
+    const addToCart = () => {
+        if (cookies.cart) {
+            setCookie("cart", `${cookies.cart},${productId}`)
+        } else {
+            setCookie("cart", `${productId}`)
+        }
+    }
 
     if (!product) {
         return <div>Loading...</div>
@@ -31,20 +33,24 @@ const Product = (props) => {
 
     return (
         <div className="main-content">
-            <img src={product.image} />
-            <h4>{product.name}</h4>
-            <p>{product.desc}</p>
-            <h3>₪{product.price}</h3>
-            {product.warranty ? <div>אחריות: {product.warranty}</div> : null}
-            {product.comp && <div>מותג: {product.comp}</div>}
+            <div className="card">
+                <div className="image">
+                    <img src={product.image} />
+                </div>
+                <h4>{product.name}</h4>
+                <p>{product.desc}</p>
+                <h2>₪{product.price}</h2>
+                {product.warranty ? <div>אחריות: {product.warranty}</div> : null}
+                {product.comp && <div>מותג: {product.comp}</div>}
 
-            <div className="mt-4">
-                <button className="btn btn-success" onClick={ToPay}>לקניה</button>
-                <button className="btn btn-success mr-4" onClick={addToCart}>הוספה לסל</button>
+                <div className="mt-4">
+                    {product.qty > 0 ?
+                        <button className="btn btn-success" onClick={addToCart}>הוספה לסל</button>
+                        :
+                        <div className="not_found">מוצר אזל מהמלאי</div>
+                    }
+                </div>
             </div>
-
-
-
         </div>
 
 

@@ -44,6 +44,9 @@ const ReportItem = ({ report, onStatusChange, onDelete }) => {
                 }
             </th>
             <th scope="col">
+                {report.image && <img width="100%" src={report.image} />}
+            </th>
+            <th scope="col">
                 <select value={report.status} onChange={(e) => onStatusChange(e, report.id)}>
                     <option value="new">New</option>
                     <option value="processing">Processing</option>

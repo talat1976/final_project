@@ -1,0 +1,22 @@
+.success {
+    text-align: center;
+    padding: 100px 0;
+    max-width: 500px;
+    margin: auto;
+}
+
+.check-icon {
+    font-size: 120px;
+    color: green;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.success-text {
+    font-size: 22px;
+    font-weight: bold;
+}
+h2{
+    font-weight: bold;
+}
+ 

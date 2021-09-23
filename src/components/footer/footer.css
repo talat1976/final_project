@@ -8,5 +8,22 @@
   
 }
 .talat{
-    margin-top: 50px;
+    color: white;
+    font-size: 22px;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.social a {
+    margin: 0 15px;
+    color: white;
+}
+
+.social-icon {
+    color: white;
+    font-size: 22px;
 }

@@ -1,5 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
-import { firebaseDB, timestamp } from '../../services/firebase'
+import "./reports.css"
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { firebaseDB, firebaseStorage, timestamp } from '../../services/firebase'
 
 const Reports = () => {
 
@@ -7,7 +10,8 @@ const Reports = () => {
         name: "",
         email: "",
         phone: "",
-        content: ""
+        content: "",
+        image: ""
     })
 
     const [success, setSuccess] = useState(false)
@@ -28,36 +32,56 @@ const Reports = () => {
             return
         }
 
-        firebaseDB.collection("reports").add({
-            name: form.name,
-            email: form.email,
-            phone: form.phone,
-            content: form.content,
-            status: "new",
-            created: timestamp()
-        })
-            .then(ref => {
-                console.log("success")
+        const file = form.image
 
-                setForm({
-                    name: "",
-                    email: "",
-                    phone: "",
-                    content: ""
-                })
+        if (file) {
+            const uploadTask = firebaseStorage.child(file.name).put(file)
 
-                setSuccess(true)
-            })
-            .catch((err) => console.log(err))
+            uploadTask.on("state_changed", (snap) => {
+                console.log(snap)
+            }, (error) => console.log(error),
+                () => {
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        console.log('File available at', downloadURL);
+
+                        firebaseDB.collection("reports").add({
+                            name: form.name,
+                            email: form.email,
+                            phone: form.phone,
+                            content: form.content,
+                            status: "new",
+                            image: downloadURL,
+                            created: timestamp()
+                        })
+                            .then(ref => {
+                                console.log("success")
+
+                                setForm({
+                                    name: "",
+                                    email: "",
+                                    phone: "",
+                                    content: ""
+                                })
+
+                                setSuccess(true)
+                            })
+                            .catch((err) => console.log(err))
+
+                    })
+                }
+            )
+        }
     }
 
-
+    const onFileChange = (e) => {
+        setForm({ ...form, image: e.target.files[0] })
+    }
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-1">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
-                    <h1>Reports</h1>
+                    <h1>דיווח על תקלות</h1>
                 </div>
             </div>
 
@@ -71,15 +95,21 @@ const Reports = () => {
 
             {success ?
                 <div className="row">
+
+
                     <div className="col-md-6 offset-md-3">
-                        <h2 className="mt-5">Thank you your report has recived succussfully!</h2>
+
+                        <h2 className="mt-2">תודה רבה הדיווח שלך התקבל בהצלחה !</h2>
+                        <div className="icon">
+                            <FontAwesomeIcon className="check-icon" icon={faCheckCircle} />
+                        </div>
                     </div>
                 </div>
                 :
                 <div className="row">
 
                     <div className="col-md-6 offset-md-3 mb-3">
-                        <label className="form-label">Fullname</label>
+                        <label className="form-label">שם מלא</label>
                         <input
                             type="text"
                             className="form-control"
@@ -91,7 +121,7 @@ const Reports = () => {
                     </div>
 
                     <div className="col-md-6 offset-md-3 mb-3">
-                        <label className="form-label">Email address</label>
+                        <label className="form-label">כתובת מייל</label>
                         <input type="email"
                             className="form-control"
                             placeholder="name@example.com"
@@ -102,7 +132,7 @@ const Reports = () => {
                     </div>
 
                     <div className="col-md-6 offset-md-3 mb-3">
-                        <label className="form-label">Phone</label>
+                        <label className="form-label">פלאפון</label>
                         <input type="phone"
                             className="form-control"
                             placeholder="050000000000"
@@ -113,7 +143,17 @@ const Reports = () => {
                     </div>
 
                     <div className="col-md-6 offset-md-3 mb-3">
-                        <label className="form-label">Content</label>
+                        <label className="form-label">קובץ/תמונה</label>
+                        <div>
+                            <input type="file"
+                                onChange={onFileChange}
+                                name="image"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-md-6 offset-md-3 mb-3">
+                        <label className="form-label">תאור התקלה</label>
                         <textarea className="form-control"
                             rows="5"
                             value={form.content}
@@ -122,7 +162,7 @@ const Reports = () => {
                     </div>
 
                     <div className="col-md-6 offset-md-3 mb-3">
-                        <button className="btn btn-primary" onClick={onSubmit}>Submit</button>
+                        <button className="btn btn-primary" onClick={onSubmit}>אישור</button>
                     </div>
 
                 </div>

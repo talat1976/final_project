@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap'
+import { firebaseDB } from '../../../services/firebase'
 
 export default function CreateProducts(props) {
     const { openmodal, onSubmit, onClose, item } = props
+    const [categories, setCategories] = useState([])
 
     const [product, setProduct] = useState({
         name: "",
@@ -15,6 +17,19 @@ export default function CreateProducts(props) {
         sale: 0,
         comp: ""
     })
+
+
+    useEffect(() => {
+        const unsub = firebaseDB.collection("categories").onSnapshot((snap) => {
+            const arr = snap.docs.map(item => ({ id: item.id, ...item.data() }))
+            setCategories(arr)
+        },
+            (error) => console.log(error),
+            () => console.log("complete")
+        )
+
+        return () => unsub()
+    }, [])
 
     useEffect(() => {
         if (item) {
@@ -66,11 +81,9 @@ export default function CreateProducts(props) {
                     <label>Category</label>
                     <select className="custom-select" name="category" value={product.category} onChange={onChange}>
                         <option value="">Not Selected</option>
-                        <option value="pc">PC</option>
-                        <option value="mobile">Mobile</option>
-                        <option value="tools">Tools</option>
-                        <option value="hardware">Hardware</option>
-                        <option value="monitor">Monitor</option>
+                        {categories.map(category =>
+                            <option key={category.id} value={category.value}>{category.display}</option>
+                        )}
                     </select>
                 </div>
 

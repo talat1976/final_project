@@ -22,13 +22,21 @@ function ProductItem(props) {
 
                 <div className="text-center">₪{prod.price - (prod.price * (prod.sale / 100))}</div>
 
-
-
                 <div>
                     <div className="buttons">
-                        {props.hideButton ? null :
-                            <Button size="sm" className="mb-1" onClick={() => props.onAddToCart(prod.id)}>הוספה לסל</Button>
+                        {prod.qty > 0 ?
+                            <div>
+                                {props.hideButton ? null :
+                                    <Button size="sm" className="mb-1" onClick={() => props.onAddToCart(prod.id)}>הוספה לסל</Button>
+                                }
+                            </div>
+                            :
+                            <div class="not_found">
+                                מוצר אזל מהמלאי
+                            </div>
                         }
+
+
 
                         <Button size="sm" variant="success" className="mb-1" onClick={props.onClick}>פרטים</Button>
                     </div>

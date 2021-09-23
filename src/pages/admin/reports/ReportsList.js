@@ -46,6 +46,7 @@ const ReportsList = () => {
                         <th scope="col">email</th>
                         <th scope="col">phone</th>
                         <th scope="col">content</th>
+                        <th scope="col">image</th>
                         <th scope="col">status</th>
                         <th scope="col"></th>
                     </tr>
