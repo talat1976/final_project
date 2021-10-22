@@ -116,12 +116,12 @@ const Payment = (props) => {
     }
 
     return (
-        <div>
+        <div >
 
 
             {success ?
                 (
-                    <div className="success">
+                    <div className="success" >
                         <div>
                             <h2>ההזמנה נקלטה בהצלחה</h2>
                             <FontAwesomeIcon className="check-icon" icon={faCheckCircle} />
@@ -142,13 +142,13 @@ const Payment = (props) => {
                         <h4>אנא המתן אנחנו מכינים את ההזמנה שלך ...</h4>
                     </div>
                     :
-                    <div className="row">
+                    <div className="row" id="dataText">
 
                         <div className="col-md-6 offset-md-3 mb-3 mt-3">
                             <h2 className="text-center" >לתשלום</h2>
                         </div>
 
-                        <div className="col-md-6 offset-md-3 mb-3">
+                        <div className="col-md-6 offset-md-3 mb-3 ">
                             <label className="form-label">שם מלא</label>
                             <input
                                 type="text"

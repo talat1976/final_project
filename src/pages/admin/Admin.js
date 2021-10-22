@@ -10,7 +10,7 @@ import ReportsList from './reports/ReportsList'
 
 export default function Admin() {
 
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [loggedIn, setLoggedIn] = useState(true)
 
     const { path } = useRouteMatch()
 

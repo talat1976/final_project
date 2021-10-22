@@ -35,9 +35,9 @@ const Reports = () => {
         let url = ""
         let deviceUrl = ""
 
-        if (!form.name || !form.email || !form.content) {
+        if (!form.name || !form.email || !form.content || !form.phone) {
             setLoading(false)
-            setError("חובה למלות את כל השדות ... !")
+            setError("חובה לרשום את  השם /והמייל /והטלפון /ותיאור הבעייה ... !")
             return
         }
 
