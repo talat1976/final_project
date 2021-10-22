@@ -6,7 +6,7 @@ import p4 from "../../images/notfound.png"
 export default function E404() {
     return (
         <div>
-            <h1>404</h1>
+            <h1> ERROR 404</h1>
             <img className="notfound" src={p4} />
 
         </div>

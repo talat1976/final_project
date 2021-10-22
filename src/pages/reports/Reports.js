@@ -38,6 +38,7 @@ const Reports = () => {
         if (!form.name || !form.email || !form.content || !form.phone) {
             setLoading(false)
             setError("חובה לרשום את  השם /והמייל /והטלפון /ותיאור הבעייה ... !")
+            alert("חובה לרשום את  השם /והמייל /והטלפון /ותיאור הבעייה ... !")
             return
         }
 
