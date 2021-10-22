@@ -14,13 +14,13 @@ export default class Footer extends Component {
                 </div>
 
                 <div className="social">
-                    <a href="https://www.google.com">
+                    <a href="https://www.facebook.com/talat.salmh/">
                         <FontAwesomeIcon className="social-icon" icon={faFacebook} />
                     </a>
                     <a href="#">
                         <FontAwesomeIcon className="social-icon" icon={faYoutube} />
                     </a>
-                    <a href="https://web.whatsapp.com/?send=+972508510811">
+                    <a href="https://web.whatsapp.com/?send=+972523034046">
                         <FontAwesomeIcon className="social-icon" icon={faWhatsapp} />
                     </a>
                 </div>

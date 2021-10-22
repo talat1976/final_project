@@ -169,9 +169,9 @@ const Reports = () => {
 
                     </div>
 
-                    <div className="col-md-6 offset-md-3 mb-3">
+                    <div className="col-md-6 offset-md-3 mb-1">
                         <div className="form-label">תמונת המכשיר</div>
-                        <div class="badge badge-secondary mb-1">אין חובה לצלם אך כל מידע נוסף יסייע באיתור מהיר יותר לתקלה</div>
+                        <div class="badge badge-secondary mb-1">אין חובה לצלם , אך כל מידע נוסף יסייע באיתור מהיר יותר לתקלה</div>
                         <div>
                             <input
                                 type="file"
@@ -200,9 +200,9 @@ const Reports = () => {
 
                     </div>
 
-                    <div className="col-md-6 offset-md-3 mb-3">
+                    <div className="col-md-6 offset-md-3 mb-1">
                         <div className="form-label">תמונת התקלה</div>
-                        <div class="badge badge-secondary mb-1">אין חובה לצלם אך כל מידע נוסף יסייע באיתור מהיר יותר לתקלה</div>
+                        <div class="badge badge-secondary mb-1">אין חובה לצלם , אך כל מידע נוסף יסייע באיתור מהיר יותר לתקלה</div>
                         <div>
                             <input
                                 type="file"
