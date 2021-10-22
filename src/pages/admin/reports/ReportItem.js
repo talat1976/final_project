@@ -37,6 +37,7 @@ const ReportItem = ({ report, onStatusChange, onDelete }) => {
             <th scope="col">{report.name}</th>
             <th scope="col">{report.email}</th>
             <th scope="col">{report.phone}</th>
+            <th scope="col">{report.type}</th>
             <th scope="col">
                 {content}
                 {(!open && report.content.length >= 50) &&
@@ -44,7 +45,18 @@ const ReportItem = ({ report, onStatusChange, onDelete }) => {
                 }
             </th>
             <th scope="col">
-                {report.image && <img width="100%" src={report.image} />}
+                {report.image &&
+                    <a href={report.image} target="_blank">
+                        <img width="100%" src={report.image} />
+                    </a>
+                }
+            </th>
+            <th scope="col">
+                {report.deviceImage &&
+                    <a href={report.deviceImage} target="_blank">
+                        <img width="100%" src={report.deviceImage} />
+                    </a>
+                }
             </th>
             <th scope="col">
                 <select value={report.status} onChange={(e) => onStatusChange(e, report.id)}>

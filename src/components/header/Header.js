@@ -22,10 +22,12 @@ function Header() {
 
         <Link to="/contact" > צרו קשר</Link>
         <Link to="/reports" > פניות / תקלות </Link>
+
         <Link to="/cart" >
           {cartCount > 0 && <span className="cart">{cartCount}</span>}
           <FontAwesomeIcon icon={faShoppingCart} /> סל קניות
         </Link>
+
       </div>
 
 

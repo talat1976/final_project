@@ -45,8 +45,10 @@ const ReportsList = () => {
                         <th scope="col">name</th>
                         <th scope="col">email</th>
                         <th scope="col">phone</th>
+                        <th scope="col">type</th>
                         <th scope="col">content</th>
                         <th scope="col">image</th>
+                        <th scope="col">device image</th>
                         <th scope="col">status</th>
                         <th scope="col"></th>
                     </tr>

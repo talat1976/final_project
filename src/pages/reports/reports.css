@@ -1,6 +1,12 @@
+#reports {
+    text-align: right;
+}
 .icon{
     text-align: center;
     padding: 100px 0;
     max-width: 500px;
     margin: auto;
+}
+.form-label{
+ margin-right: 5px;
 }

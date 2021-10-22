@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import "./reports.css"
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { firebaseDB, firebaseStorage, timestamp } from '../../services/firebase'
+import Loader from 'react-loader-spinner'
 
 const Reports = () => {
 
@@ -10,11 +11,14 @@ const Reports = () => {
         name: "",
         email: "",
         phone: "",
+        type: "",
         content: "",
-        image: ""
+        image: "",
+        deviceImage: ""
     })
 
     const [success, setSuccess] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
 
     const onChange = (e) => {
@@ -24,61 +28,82 @@ const Reports = () => {
         setForm({ ...form, [name]: value })
     }
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         setError("")
+        setLoading(true)
+
+        let url = ""
+        let deviceUrl = ""
 
         if (!form.name || !form.email || !form.content) {
-            setError("Name and email and content is required")
+            setLoading(false)
+            setError("חובה למלות את כל השדות ... !")
             return
         }
 
-        const file = form.image
+        if (form.image) {
+            url = await uploadFile(form.image)
+        }
 
-        if (file) {
-            const uploadTask = firebaseStorage.child(file.name).put(file)
+        if (form.deviceImage) {
+            deviceUrl = await uploadFile(form.deviceImage)
+        }
 
-            uploadTask.on("state_changed", (snap) => {
-                console.log(snap)
-            }, (error) => console.log(error),
+        firebaseDB.collection("reports").add({
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            content: form.content,
+            type: form.type,
+            status: "new",
+            image: url,
+            deviceImage: deviceUrl,
+            created: timestamp()
+        })
+            .then(ref => {
+                console.log("success")
+
+                setForm({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    type: "",
+                    content: ""
+                })
+
+                setLoading(true)
+                setSuccess(true)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const uploadFile = (file) => {
+        return new Promise(function (resolve, reject) {
+            //Upload file
+            const task = firebaseStorage.child(file.name).put(file)
+
+            //Update progress bar
+            task.on('state_changed',
+                (snapshot) => { },
+                (err) => {
+                    reject(err)
+                    console.error(err)
+                },
                 () => {
-                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                        console.log('File available at', downloadURL);
-
-                        firebaseDB.collection("reports").add({
-                            name: form.name,
-                            email: form.email,
-                            phone: form.phone,
-                            content: form.content,
-                            status: "new",
-                            image: downloadURL,
-                            created: timestamp()
-                        })
-                            .then(ref => {
-                                console.log("success")
-
-                                setForm({
-                                    name: "",
-                                    email: "",
-                                    phone: "",
-                                    content: ""
-                                })
-
-                                setSuccess(true)
-                            })
-                            .catch((err) => console.log(err))
-
+                    task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        resolve(downloadURL)
                     })
                 }
             )
-        }
+        })
     }
 
     const onFileChange = (e) => {
-        setForm({ ...form, image: e.target.files[0] })
+        setForm({ ...form, [e.target.name]: e.target.files[0] })
     }
 
     return (
-        <div className="container mt-1">
+        <div className="container mt-1" id="reports">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h1>דיווח על תקלות</h1>
@@ -140,14 +165,49 @@ const Reports = () => {
                             onChange={onChange}
                             name="phone"
                         />
+
+
                     </div>
 
                     <div className="col-md-6 offset-md-3 mb-3">
-                        <label className="form-label">קובץ/תמונה</label>
+                        <div className="form-label">תמונת המכשיר</div>
+                        <div class="badge badge-secondary mb-1">אין חובה לצלם אך כל מידע נוסף יסייע באיתור מהיר יותר לתקלה</div>
                         <div>
-                            <input type="file"
+                            <input
+                                type="file"
                                 onChange={onFileChange}
                                 name="image"
+                            />
+                        </div>
+
+                    </div>
+
+                    <div className="col-md-6 offset-md-3 mb-3">
+                        <label className="form-label">   סוג המכשיר</label>
+                        <select type="text" className="form-control"
+                            value={form.type}
+                            onChange={onChange}
+                            name="type"
+                        >
+                            <option value="" >תבחר סוג מכשיר</option>
+                            <option value="galaxy">גלאקסי</option>
+                            <option value="iphone">איפון</option>
+                            <option value="laptop">מחשב נייד</option>
+                            <option value="computer">מחשב נייח</option>
+                            <option value="another">אחר</option>
+                        </select>
+
+
+                    </div>
+
+                    <div className="col-md-6 offset-md-3 mb-3">
+                        <div className="form-label">תמונת התקלה</div>
+                        <div class="badge badge-secondary mb-1">אין חובה לצלם אך כל מידע נוסף יסייע באיתור מהיר יותר לתקלה</div>
+                        <div>
+                            <input
+                                type="file"
+                                onChange={onFileChange}
+                                name="deviceImage"
                             />
                         </div>
                     </div>
@@ -162,7 +222,9 @@ const Reports = () => {
                     </div>
 
                     <div className="col-md-6 offset-md-3 mb-3">
-                        <button className="btn btn-primary" onClick={onSubmit}>אישור</button>
+                        {loading ? <Loader type="TailSpin" color="#00BFFF" height={60} width={60} /> :
+                            <button className="btn btn-primary" onClick={onSubmit}>אישור</button>
+                        }
                     </div>
 
                 </div>
