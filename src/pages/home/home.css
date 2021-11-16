@@ -1,13 +1,14 @@
 #home .links {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row-reverse;
-    justify-content: center;
     margin-bottom: 40px;
 }
 
 #home .links .link {
-    font-size: 20px;
+    font-size: 18px;
     margin: 0 10px;
+    margin-bottom: 10px;
     color: #2c3e50;
     padding: 3px 15px;
     border-radius: 5px;
@@ -42,4 +43,21 @@
     background-color: #F39C12;
     padding: 10px;
     border-radius: 10px;
+}
+
+.search {
+    text-align: right;
+}
+.search label {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+}
+.search input {
+    outline: none;
+    font-family: 'Rubik', sans-serif;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 300px;
 }

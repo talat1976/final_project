@@ -10,6 +10,7 @@ const Home = (props) => {
     const [products, setProducts] = useState([])
     const [filterdProducts, setFilterdProducts] = useState([])
     const [filter, setFilter] = useState("")
+    const [search, setSearch] = useState("")
     const [categories, setCategories] = useState([])
 
     const [cookies, setCookie] = useCookies(['cart'])
@@ -36,18 +37,26 @@ const Home = (props) => {
     }, [])
 
     useEffect(() => {
+        let searchProduct = []
+
         if (filter) {
             if (filter === "sale") {
                 const prods = products.filter(p => p.sale > 0)
-                setFilterdProducts(prods)
+                searchProduct = prods
             } else {
                 const prods = products.filter(p => p.category === filter)
-                setFilterdProducts(prods)
+                searchProduct = prods
             }
         } else {
-            setFilterdProducts(products)
+            searchProduct = products
         }
-    }, [filter])
+
+        if (search.length > 0) {
+            searchProduct = searchProduct.filter(p => p.name.toLowerCase().includes(search.toLowerCase()))
+        }
+
+        setFilterdProducts(searchProduct)
+    }, [filter, search])
 
     const onView = (id) => {
         props.history.push(`/product/${id}`)
@@ -63,7 +72,6 @@ const Home = (props) => {
     }
 
     return (
-
         <div className="page" id="home">
             <div className="links">
                 <div
@@ -88,6 +96,11 @@ const Home = (props) => {
             </div>
 
             {(filter === "sale") && <h1 className="sale-banner"> TALAT TECH  מבצעי השבוע  ב  </h1>}
+
+            <div className="search">
+                <label>חיפוש</label>
+                <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="חיפוש" />
+            </div>
 
             <div className="products">
                 {filterdProducts.map(prod =>

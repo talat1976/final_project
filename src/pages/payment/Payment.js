@@ -110,9 +110,20 @@ const Payment = (props) => {
                 setSuccess(true)
                 setLoading(false)
                 setCookie("cart", "")
-
+                updateQty(prds)
             })
             .catch((err) => console.log(err))
+    }
+
+    const updateQty = async (ids) => {
+        for (let i = 0; i < ids.length; i++) {
+            const productRef = firebaseDB.collection("products").doc(ids[i])
+            const doc = await productRef.get()
+
+            await productRef.update({
+                qty: doc.data().qty - 1
+            })
+        }
     }
 
     return (
@@ -130,7 +141,7 @@ const Payment = (props) => {
                             <h2>Talat Tech תודה שקניתם מ </h2>
 
                             <h3>המוצר יגיע אליכם תוך 14 ימי עסקים </h3>
-                            <h3>נשמח לראות אותכם שוב</h3>
+                            <h3>נשמח לראות אתכם שוב</h3>
 
                         </div>
                     </div>

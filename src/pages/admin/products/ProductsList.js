@@ -64,7 +64,8 @@ export const ProductsList = () => {
                         <th scope="col">sale</th>
                         <th scope="col">category</th>
                         <th scope="col">comp</th>
-                        <th scope="col" >img </th>
+                        <th scope="col">Rating</th>
+                        <th scope="col" >img</th>
                         <th scope="col" > </th>
 
                     </tr>
@@ -79,6 +80,7 @@ export const ProductsList = () => {
                             <th scope="row">{prd.sale}</th>
                             <th scope="row">{prd.category ? prd.category : "---"}</th>
                             <th scope="row">{prd.comp}</th>
+                            <th scope="row">{prd.rating}</th>
                             <th scope="row"><img src={prd.image} width="100px" /></th>
                             <th scope="row">
                                 <button onClick={() => onEditClick(prd)} className="btn btn-primary">Edit</button>

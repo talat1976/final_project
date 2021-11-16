@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
+import Rating from '../rating/Rating'
 import "./product.css"
 
 function ProductItem(props) {
@@ -22,6 +23,8 @@ function ProductItem(props) {
 
                 <div className="text-center">₪{prod.price - (prod.price * (prod.sale / 100))}</div>
 
+                {prod.rating > 0 && <Rating rating={prod.rating} />}
+
                 <div>
                     <div className="buttons">
                         {prod.qty > 0 ?
@@ -31,12 +34,10 @@ function ProductItem(props) {
                                 }
                             </div>
                             :
-                            <div class="not_found">
+                            <div className="not_found">
                                 מוצר אזל מהמלאי
                             </div>
                         }
-
-
 
                         <Button size="sm" variant="success" className="mb-1" onClick={props.onClick}>פרטים</Button>
                     </div>

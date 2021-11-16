@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
+import Rating from '../../components/rating/Rating'
 import { firebaseDB } from '../../services/firebase'
 import "./product.css"
 
@@ -42,12 +43,14 @@ const Product = (props) => {
                 <h2>₪{product.price}</h2>
                 {product.warranty ? <div>אחריות: {product.warranty}</div> : null}
                 {product.comp && <div>מותג: {product.comp}</div>}
+                {product.rating > 0 && <Rating rating={product.rating} />}
 
                 <div className="mt-4">
                     {product.qty > 0 ?
                         <button className="btn btn-success" onClick={addToCart}>הוספה לסל</button>
                         :
                         <div className="not_found">מוצר אזל מהמלאי</div>
+
                     }
                 </div>
             </div>

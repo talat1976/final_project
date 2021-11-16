@@ -27,6 +27,7 @@ export default function CreateProducts(props) {
                             comp: product.comp,
                             warranty: product.warranty,
                             category: product.category,
+                            rating: product.rating,
                             created: timestamp()
                         })
                             .then(docRef => props.onSuccess())
